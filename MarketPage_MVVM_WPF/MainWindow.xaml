@@ -5,8 +5,216 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarketPage_MVVM_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="YellowUa_iPhone13" Height="920" Width="1440" ResizeMode="NoResize">
+    <Window.Resources>
+        <SolidColorBrush x:Key="Color.BorderGray" Color="#c6c7c6"/>
+        <SolidColorBrush x:Key="Color.Yellow" Color="#ffce00"/>
+        <SolidColorBrush x:Key="Color.Green" Color="#90d998"/>
+        <SolidColorBrush x:Key="Color.Gray" Color="#86909b"/>
+        <SolidColorBrush x:Key="Color.Purple" Color="#6a5eff"/>
+        <SolidColorBrush x:Key="Color.Red" Color="#f94e4e"/>
 
+        <FontFamily x:Key="monterrat">pack://application:,,,/Resources/Fonts/#Montserrat</FontFamily>
+
+        <Style x:Key="ListBoxItemContainer" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TextBlockName" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="{StaticResource monterrat}"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource Color.Purple}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ButtonBuy" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="{StaticResource Color.Yellow}"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="18" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Background.Color">
+                                        <ColorAnimation To="#f94e4e" Duration="0:0:0:1" SpeedRatio="3"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Foreground.Color">
+                                        <ColorAnimation To="White" Duration="0:0:0:1" SpeedRatio="3"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Background.Color">
+                                        <ColorAnimation To="#ffce00" Duration="0:0:0:1" SpeedRatio="5"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Foreground.Color">
+                                        <ColorAnimation To="Black" Duration="0:0:0:1" SpeedRatio="5"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FilterName" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource monterrat}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="SliderCount" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource monterrat}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="{StaticResource Color.Gray}"/>
+        </Style>
+
+        <ControlTemplate x:Key="ProductBox" TargetType="Button">
+            <Border BorderBrush="{StaticResource Color.BorderGray}" BorderThickness="1" CornerRadius="18" Margin="0 4">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="1" Source="{Binding Image}" RenderOptions.BitmapScalingMode="Fant"/>
+                    <TextBlock Grid.Row="2" Style="{StaticResource TextBlockName}" Text="{Binding Name}" Margin="20 20 0 0"/>
+                    <TextBlock Grid.Row="3" Text="{Binding Price}" FontSize="24" FontFamily="{StaticResource monterrat}" FontWeight="SemiBold" Margin="20 0 0 0"/>
+                    <Button Grid.Row="4" Content="Купить" Style="{StaticResource ButtonBuy}" Margin="20 0 0 0"/>
+                    <TextBlock Grid.Row="5" Text="{Binding Availability}" Foreground="{StaticResource Color.Green}" Margin="16 10 0 0"/>
+                    <TextBlock Grid.Row="5" Text="код: " Foreground="{StaticResource Color.BorderGray}" HorizontalAlignment="Center"  Margin="50 10 0 0"/>
+                    <TextBlock Grid.Row="5" Text="{Binding Code}" Foreground="{StaticResource Color.BorderGray}" HorizontalAlignment="Right"  Margin="0 10 14 0"/>
+
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <TextBlock Text="iPhone 13 Pro" FontSize="40" FontFamily="{StaticResource monterrat}" VerticalAlignment="Center" Margin="20 0"/>
+        </Grid>
+        <Grid Grid.Row="1" Background="{StaticResource Color.BorderGray}"/>
+        
+        <Grid Grid.Row="2">
+           
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="120"/>
+                    <RowDefinition Height="1"/>
+                    <RowDefinition Height="240"/>
+                    <RowDefinition Height="1"/>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="1"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Цена" Style="{StaticResource FilterName}" Margin="40 0"/>
+                    <Slider Grid.Row="1" x:Name="PriceSlider" Margin="40 8 0 0" Minimum="42899" Maximum="57499" Value="42899" TickFrequency="1000"/>
+                    <TextBlock Grid.Row="2" Text="{Binding ElementName=PriceSlider, Path=Value, Mode=OneWay}" Style="{StaticResource SliderCount}" Margin="40 0" VerticalAlignment="Top"/>
+                    <TextBlock Grid.Row="2" Text="{Binding ElementName=PriceSlider, Path=Maximum, Mode=OneWay}" Style="{StaticResource SliderCount}" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Top"/>
+                </Grid>
+                <Grid Grid.Row="1" Background="{StaticResource Color.BorderGray}" Margin="40 0 0 0"/>
+                <Grid Grid.Row="3" Background="{StaticResource Color.BorderGray}" Margin="40 0 0 0"/>
+                <Grid Grid.Row="5" Background="{StaticResource Color.BorderGray}" Margin="40 0 0 0"/>
+
+                <StackPanel Grid.Row="2">
+                    <TextBlock Style="{StaticResource FilterName}" Text="Встроенная память" Margin="40 20 0 0"/>
+                    <CheckBox Content="128Gb" Margin="40 24 0 0" FontSize="16" />
+                    <CheckBox Content="256Gb" Margin="40 24 0 0" FontSize="16"/>
+                    <CheckBox Content="512Gb" Margin="40 24 0 0" FontSize="16"/>
+                    <CheckBox Content="1Tb" Margin="40 24 0 0" FontSize="16"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="4">
+                    <TextBlock Style="{StaticResource FilterName}" Text="Оперативная память" Margin="40 20 0 0"/>
+                    <CheckBox Content="6ГБ" Margin="40 24 0 0" FontSize="16" />
+                </StackPanel>
+                
+                <StackPanel Grid.Row="6">
+                    <TextBlock Style="{StaticResource FilterName}" Text="Цвет" Margin="40 20 0 0"/>
+                    <CheckBox Content="Green" Margin="40 14 0 0" FontSize="16" Background="Green" BorderBrush="Green" />
+                    <CheckBox Content="Silver" Margin="40 14 0 0" FontSize="16" Background="Silver" BorderBrush="Silver"/>
+                    <CheckBox Content="Gold" Margin="40 14 0 0" FontSize="16" Background="#c8b499" BorderBrush="#c8b499"/>
+                    <CheckBox Content="Graphite" Margin="40 14 0 0" FontSize="16" Background="#727272" BorderBrush="#727272"/>
+                    <CheckBox Content="Sierra Blue" Margin="40 14 0 0" FontSize="16" Background="#90a3ba" BorderBrush="#90a3ba"/>
+                </StackPanel>
+            </Grid>
+            
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <ListBox Grid.Row="1" Margin="100 00 0 0" ItemContainerStyle="{StaticResource ListBoxItemContainer}" ItemsSource="{Binding Products}" ScrollViewer.HorizontalScrollBarVisibility="Hidden" BorderThickness="0">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"  IsItemsHost="True" MaxWidth="1100" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <Button Template="{StaticResource ProductBox}" Width="226" Height="360"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

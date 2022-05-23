@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="MarketPage_MVVM_WPF.ProductTileButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MarketPage_MVVM_WPF" xmlns:models="clr-namespace:MarketPage_MVVM_WPF.Models" d:DataContext="{d:DesignInstance Type=models:ProductModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="360" d:DesignWidth="226" Width="226" Height="360">
+    
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="Color.BorderGray" Color="#e5e5e5"/>
+        <SolidColorBrush x:Key="Color.Yellow" Color="#ffce00"/>
+        <SolidColorBrush x:Key="Color.Green" Color="#90d998"/>
+        <SolidColorBrush x:Key="Color.Gray" Color="#86909b"/>
+
+        <Style x:Key="MainBorder" TargetType="Border">
+            <Setter Property="BorderBrush" Value="{StaticResource Color.BorderGray}"/>
+            <!--<Setter Property="Background" Value="Transparent"/>-->
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="14"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Border Style="{StaticResource MainBorder}">
+            <Grid Background="AliceBlue">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="240"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0" Source="{Binding Image}" RenderOptions.BitmapScalingMode="Fant"/>
+                <TextBlock Grid.Row="1" Text="{Binding Name}"/>
+            </Grid>
+        </Border>
+    </Grid>
+
+</UserControl>

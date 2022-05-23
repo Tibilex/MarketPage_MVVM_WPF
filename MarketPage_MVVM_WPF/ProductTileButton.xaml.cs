@@ -17,11 +17,11 @@ using System.Windows.Shapes;
 namespace MarketPage_MVVM_WPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для ProductTileButton.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ProductTileButton : UserControl
     {
-        public MainWindow()
+        public ProductTileButton()
         {
             InitializeComponent();
             DataContext = new ProductViewModel();
